@@ -16,7 +16,7 @@ class Calculator extends Component{
 
     render(){
 
-        const { totalProducts } = this.props;
+        const { totalProducts, totalPrice, onRowSelect, onSubmit } = this.props;
 
         return( 
             <div className="container">                       
@@ -28,34 +28,42 @@ class Calculator extends Component{
                         fixedFooter={true}
                         selectable={true}
                         multiSelectable={true}
+                        onRowSelection={onRowSelect}                       
+                        // allRowsSelected={true}
                         >
                         <TableHeader
                             displaySelectAll={true}
-                            adjustForCheckbox={true}
+                            adjustForCheckbox={false}
                             enableSelectAll={true}
                         >
                             <TableRow>
-                            <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center'}}>
-                                계산 상세
-                            </TableHeaderColumn>
+                                <TableHeaderColumn colSpan="5" tooltip="계산상세" style={{textAlign: 'center'}}>
+                                    계산 상세
+                                </TableHeaderColumn>
                             </TableRow>
-                            <TableRow>
-                            <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
-                            <TableHeaderColumn tooltip="금액">금액</TableHeaderColumn>
+                            <TableRow                            
+                             >
+                                <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
+                                <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
+                                <TableHeaderColumn tooltip="금액">금액</TableHeaderColumn>
+                                <TableHeaderColumn tooltip="총금액">총금액</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody
                             displayRowCheckbox={true}
-                            deselectOnClickaway={true}
+                            deselectOnClickaway={false}
                             showRowHover={true}
                             stripedRows={true}
                         >
                             {totalProducts.map( (row, index) => (
-                            <TableRow key={index}>
-                                <TableRowColumn>{row.productName}</TableRowColumn>
-                                <TableRowColumn>{row.productQuantity}</TableRowColumn>
-                                <TableRowColumn>{row.productTotalPrice}</TableRowColumn>
+                            <TableRow 
+                                key={index}        
+                                selected={row.selected}  
+                            >                                                               
+                                <TableRowColumn style={{textAlign: "right"}}>{row.productName}</TableRowColumn>
+                                <TableRowColumn style={{textAlign: "center"}}>{row.productQuantity}</TableRowColumn>
+                                <TableRowColumn style={{textAlign: "center"}}>{row.productPrice}</TableRowColumn>
+                                <TableRowColumn style={{textAlign: "center"}}>{row.productTotalPrice}</TableRowColumn>
                             </TableRow>
                             ))}
                         </TableBody>
@@ -66,11 +74,15 @@ class Calculator extends Component{
                             <TableRowColumn>제품명</TableRowColumn>
                             <TableRowColumn>수량</TableRowColumn>
                             <TableRowColumn>금액</TableRowColumn>
+                            <TableRowColumn>총금액</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                            <TableRowColumn colSpan="3" style={{textAlign: 'right'}}>
-                                <p>총 금액 : 1154384 원</p>
-                                <RaisedButton label="전송" />
+                            <TableRowColumn colSpan="4" style={{textAlign: 'right'}}>
+                                <p>총 금액 : {totalPrice} 원</p>
+                                <RaisedButton
+                                 label="전송"
+                                 onClick={onSubmit}
+                                  />
                             </TableRowColumn>
                             </TableRow>
                         </TableFooter>

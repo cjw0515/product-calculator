@@ -14,7 +14,7 @@ const Product = ({
     onChange,
     onQTTctrl,
     onCalulate,
-    reset
+    reset,
 }) => (
     <div className="product" key={key}>        
         <div className="imgcontainer">
