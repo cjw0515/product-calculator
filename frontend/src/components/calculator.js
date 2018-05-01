@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as utils from '../utils/utils';
 import {
     Table,
     TableBody,
@@ -78,7 +79,7 @@ class Calculator extends Component{
                             </TableRow>
                             <TableRow>
                             <TableRowColumn colSpan="4" style={{textAlign: 'right'}}>
-                                <p>총 금액 : {totalPrice} 원</p>
+                                <p>총 금액 : {utils.addComma(totalPrice)} 원</p>
                                 <RaisedButton
                                  label="전송"
                                  onClick={onSubmit}

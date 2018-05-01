@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ProductContainer from './productContainer';
 import Calculator from '../components/calculator';
+import axios from 'axios';
 
 class AppTemplate extends Component{
 
@@ -50,9 +51,26 @@ class AppTemplate extends Component{
         })  
     }
 
+    handleSubmit = () => {
+        const { totalPrice, totalProducts } = this.state;
+        if(totalPrice === 0){
+            alert('항목을 선택해주세요')
+            return;
+        }
+
+        const data = totalProducts.filter( products => products.selected !== false );
+        // console.log(data);
+        return axios.get('/api/product/')
+        .then(response=>{
+            console.log(response);
+        });
+    }
+
+    
+
     render(){
 
-        const { handleDetails, handleSelect } = this;
+        const { handleDetails, handleSelect, handleSubmit } = this;
         const { totalProducts, totalPrice  } = this.state;
 
         return(
@@ -64,6 +82,7 @@ class AppTemplate extends Component{
                     totalProducts={ totalProducts }
                     totalPrice={ totalPrice }
                     onRowSelect={ handleSelect }
+                    onSubmit={ handleSubmit }
                 />
             </div>
         )

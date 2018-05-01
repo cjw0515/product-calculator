@@ -10,7 +10,7 @@ const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', () => { console.log('Connected to mongodb server'); });
 // mongoose.connect('mongodb://username:password@host:port/database=');
-mongoose.connect('mongodb://localhost/ICOwebApp');
+mongoose.connect('mongodb://localhost/10x10');
 
 app.use(bodyParser.json());
 app.use('/api', api);

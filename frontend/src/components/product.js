@@ -48,10 +48,10 @@ const Product = ({
         </div>        
         <div>
             <RaisedButton label="calculate" 
-                onClick={ () => {
+                onClick={() => {
                     onCalulate(id, productName, productPrice, productQuantity);
                     reset(id);
-                } }
+                }}
                 fullWidth={true} />
         </div>
     </div>
