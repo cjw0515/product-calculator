@@ -39,8 +39,8 @@ class Calculator extends Component{
                             onSelectAll={()=>{alert()}}
                         >
                             <TableRow>
-                                <TableHeaderColumn colSpan="4" tooltip="계산상세" style={{textAlign: 'center'}}>
-                                    계산 상세
+                                <TableHeaderColumn colSpan="4" tooltip="계산상세" style={{textAlign: 'right'}}>
+                                <p>총 금액 : {utils.addComma(totalPrice)} 원</p>
                                 </TableHeaderColumn>
                             </TableRow>
                             <TableRow                            

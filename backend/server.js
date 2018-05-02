@@ -15,8 +15,4 @@ mongoose.connect('mongodb://localhost/10x10');
 app.use(bodyParser.json());
 app.use('/api', api);
 
-app.get('/hello/abc', (req, res) => {
-  res.send('hello');
-});
-
 app.listen(port, () => console.log(`Listening on port ${port}`));

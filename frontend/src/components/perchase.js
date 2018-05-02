@@ -13,7 +13,8 @@ import {
 
 export const Perchase = (props) => {
 
-    const { perchaseList, totalPerchase } = props;
+    let { perchaseList, totalPerchase } = props;
+    totalPerchase = utils.addComma(totalPerchase);
 
     return(
         <Table
@@ -78,7 +79,8 @@ export const Perchase = (props) => {
 
 export const PerchaseByProduct = (props) => {
     
-    const { perchaseList, totalPerchase } = props;
+    let { perchaseList, totalPerchase } = props;
+    totalPerchase = utils.addComma(totalPerchase);
 
     return(
         <Table

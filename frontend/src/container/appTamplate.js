@@ -67,7 +67,7 @@ class AppTemplate extends Component{
 
         const data = totalProducts.filter( products => products.selected !== false );
         // console.log(data);
-        return axios.post('/api/perchase/', data)
+        return axios.post('/api/perchases/', data)
         .then(response => {
             this.getPerchaseList();
             this.setState({
@@ -80,14 +80,18 @@ class AppTemplate extends Component{
 
     getPerchaseList = (listType, option) => {
 
-        let url = '/api/perchase';
+        let url = '/api/perchases';
 
-        url = typeof listType === "undefined" ? url : `${url}/${listType}/${option}`;
+        url = typeof listType === "undefined" ? url : `${url}?${listType}=${option}`;
 
         return axios.get(url)
         .then(response => {
+
+            const data = response.data;
+
             this.setState({
-                perchaseList: response.data
+                perchaseList: data,
+                totalPerchase: data.reduce((sum, product) => sum+=product.productPrice ,0) 
             })
         }).catch((error) => {
             console.error(error);

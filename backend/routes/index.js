@@ -1,9 +1,7 @@
 import express from 'express';
-import contribution from './contribution';
-import perchase from './perchase';
+import perchase from './perchases';
 
 const router = express.Router();
-router.use('/contribution', contribution);
-router.use('/perchase', perchase);
+router.use('/perchases', perchase);
 
 export default router;

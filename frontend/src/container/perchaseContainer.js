@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Perchase, PerchaseByProduct } from '../components/perchase';
 import { Tabs, Tab } from 'material-ui/Tabs';
-  
+
 class PerchaseContainer extends Component{
 
     constructor(props) {
