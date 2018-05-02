@@ -12,7 +12,9 @@ import {
   } from 'material-ui/Table';
   
 class Calculator extends Component{
-
+    state = {
+        allRowsSelected: false
+    }
     render(){
 
         const { totalProducts, totalPrice, onRowSelect, onSubmit } = this.props;
@@ -28,19 +30,21 @@ class Calculator extends Component{
                         selectable={true}
                         multiSelectable={true}
                         onRowSelection={onRowSelect}                       
-                        // allRowsSelected={true}
+                        allRowsSelected={this.state.allRowsSelected}
                         >
                         <TableHeader
                             displaySelectAll={true}
-                            adjustForCheckbox={false}
+                            adjustForCheckbox={true}
                             enableSelectAll={true}
+                            onSelectAll={()=>{alert()}}
                         >
                             <TableRow>
-                                <TableHeaderColumn colSpan="5" tooltip="계산상세" style={{textAlign: 'center'}}>
+                                <TableHeaderColumn colSpan="4" tooltip="계산상세" style={{textAlign: 'center'}}>
                                     계산 상세
                                 </TableHeaderColumn>
                             </TableRow>
                             <TableRow                            
+                                
                              >
                                 <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
                                 <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
@@ -59,10 +63,10 @@ class Calculator extends Component{
                                 key={index}        
                                 selected={row.selected}  
                             >                                                               
-                                <TableRowColumn style={{textAlign: "right"}}>{row.productName}</TableRowColumn>
-                                <TableRowColumn style={{textAlign: "center"}}>{row.productQuantity}</TableRowColumn>
-                                <TableRowColumn style={{textAlign: "center"}}>{utils.addComma(row.productPrice)}</TableRowColumn>
-                                <TableRowColumn style={{textAlign: "center"}}>{utils.addComma(row.productTotalPrice)}</TableRowColumn>
+                                <TableRowColumn>{row.productName}</TableRowColumn>
+                                <TableRowColumn>{row.productQuantity}</TableRowColumn>
+                                <TableRowColumn>{utils.addComma(row.productPrice)}</TableRowColumn>
+                                <TableRowColumn>{utils.addComma(row.productTotalPrice)}</TableRowColumn>
                             </TableRow>
                             ))}
                         </TableBody>
@@ -80,7 +84,17 @@ class Calculator extends Component{
                                 <p>총 금액 : {utils.addComma(totalPrice)} 원</p>
                                 <RaisedButton
                                  label="전송"
-                                 onClick={onSubmit}
+                                 onClick={
+                                     () => {
+                                         onSubmit()
+                                         .then(
+                                            () => {
+                                                this.setState({
+                                                    allRowsSelected: !this.state.allRowsSelected
+                                                })
+                                            }
+                                         );
+                                        }}
                                   />
                             </TableRowColumn>
                             </TableRow>

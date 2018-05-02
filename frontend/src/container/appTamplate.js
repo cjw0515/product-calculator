@@ -78,25 +78,37 @@ class AppTemplate extends Component{
         });
     }
 
-    getPerchaseList = () => {
-        return axios.get('/api/perchase/')
+    getPerchaseList = (listType, option) => {
+
+        let url = '/api/perchase';
+
+        url = typeof listType === "undefined" ? url : `${url}/${listType}/${option}`;
+
+        return axios.get(url)
         .then(response => {
             this.setState({
                 perchaseList: response.data
             })
+        }).catch((error) => {
+            console.error(error);
         });    
     }
 
     render(){
 
-        const { handleDetails, handleSelect, handleSubmit } = this;
+        const { 
+            handleDetails,
+            handleSelect, 
+            handleSubmit,
+            getPerchaseList
+         } = this;
         const { 
             totalProducts,
             totalPrice,
             perchaseList,
             totalPerchase
-              } = this.state;
-
+         } = this.state;
+         
         return(
             <div>
                 <ProductContainer
@@ -110,6 +122,7 @@ class AppTemplate extends Component{
                 />
                 <PerchaseContainer
                     perchaseList={ perchaseList }
+                    getPerchaseList={ getPerchaseList }
                     totalPerchase={ totalPerchase }
                 />
             </div>

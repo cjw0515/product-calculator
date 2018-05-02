@@ -36,7 +36,7 @@ export const Perchase = (props) => {
             <TableRow>
             <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
             <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
-            <TableHeaderColumn tooltip="금액">금액</TableHeaderColumn>
+            <TableHeaderColumn tooltip="제품금액">제품금액</TableHeaderColumn>
             <TableHeaderColumn tooltip="총금액">총금액</TableHeaderColumn>
             <TableHeaderColumn tooltip="구매일자">구매일자</TableHeaderColumn>
             </TableRow>
@@ -62,7 +62,7 @@ export const Perchase = (props) => {
             <TableRow>
             <TableRowColumn>제품명</TableRowColumn>
             <TableRowColumn>수량</TableRowColumn>
-            <TableRowColumn>금액</TableRowColumn>
+            <TableRowColumn>제품금액</TableRowColumn>
             <TableRowColumn>총금액</TableRowColumn>
             <TableRowColumn>구매일자</TableRowColumn>
             </TableRow>
@@ -101,7 +101,7 @@ export const PerchaseByProduct = (props) => {
             <TableRow>
             <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
             <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
-            <TableHeaderColumn tooltip="금액">금액</TableHeaderColumn>
+            <TableHeaderColumn tooltip="제품금액">제품금액</TableHeaderColumn>
             <TableHeaderColumn tooltip="총금액">총금액</TableHeaderColumn>
             </TableRow>
         </TableHeader>
@@ -112,7 +112,7 @@ export const PerchaseByProduct = (props) => {
         >
             {perchaseList.map( (row, index) => (
             <TableRow key={index}>
-                <TableRowColumn>{row.productName}</TableRowColumn>
+                <TableRowColumn>{row._id}</TableRowColumn>
                 <TableRowColumn>{row.productQuantity}</TableRowColumn>
                 <TableRowColumn>{utils.addComma(row.productPrice)}</TableRowColumn>
                 <TableRowColumn>{utils.addComma(row.productQuantity * row.productPrice)}</TableRowColumn>
@@ -125,7 +125,7 @@ export const PerchaseByProduct = (props) => {
             <TableRow>
             <TableRowColumn>제품명</TableRowColumn>
             <TableRowColumn>수량</TableRowColumn>
-            <TableRowColumn>금액</TableRowColumn>
+            <TableRowColumn>제품금액</TableRowColumn>
             <TableRowColumn>총금액</TableRowColumn>
             </TableRow>
             <TableRow>

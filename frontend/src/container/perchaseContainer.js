@@ -19,7 +19,7 @@ class PerchaseContainer extends Component{
     
     render(){
 
-        const { perchaseList, totalPerchase } = this.props;
+        const { perchaseList, totalPerchase, getPerchaseList } = this.props;
 
         return(
             <div className="container">
@@ -27,12 +27,13 @@ class PerchaseContainer extends Component{
                     <Tabs
                         value={this.state.value}
                         onChange={this.handleChange}
-                        tabItemContainerStyle={{background: 'white'}}
+                        tabItemContainerStyle={{background: 'white'}}                        
                     >
                     <Tab 
                         label="구매내역" 
-                        value="a"
+                        value="a"                        
                         style={{color:"black"}}                         
+                        onActive={ ()=>{getPerchaseList()} }
                     >
                         <Perchase
                             perchaseList={ perchaseList }
@@ -42,7 +43,8 @@ class PerchaseContainer extends Component{
                     <Tab
                         label="제품별구매내역"
                         value="b"
-                        style={{color:"black"}}                                                 
+                        style={{color:"black"}}   
+                        onActive={ ()=>{getPerchaseList("group", "productName")} }                                              
                     >
                         <PerchaseByProduct
                             perchaseList={ perchaseList }
