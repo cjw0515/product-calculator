@@ -10,8 +10,6 @@ import {
     TableRow,
     TableRowColumn,
   } from 'material-ui/Table';
-  import TextField from 'material-ui/TextField';
-  import Toggle from 'material-ui/Toggle';
   
 class Calculator extends Component{
 
@@ -63,8 +61,8 @@ class Calculator extends Component{
                             >                                                               
                                 <TableRowColumn style={{textAlign: "right"}}>{row.productName}</TableRowColumn>
                                 <TableRowColumn style={{textAlign: "center"}}>{row.productQuantity}</TableRowColumn>
-                                <TableRowColumn style={{textAlign: "center"}}>{row.productPrice}</TableRowColumn>
-                                <TableRowColumn style={{textAlign: "center"}}>{row.productTotalPrice}</TableRowColumn>
+                                <TableRowColumn style={{textAlign: "center"}}>{utils.addComma(row.productPrice)}</TableRowColumn>
+                                <TableRowColumn style={{textAlign: "center"}}>{utils.addComma(row.productTotalPrice)}</TableRowColumn>
                             </TableRow>
                             ))}
                         </TableBody>

@@ -49,6 +49,17 @@ img {
   size: 10px;
 }
 
+.perchaseList {
+  border: 1px solid rgb(78, 78, 78);
+  box-shadow: 1px 1px gray;
+  margin: 0.2em;
+  padding: 2em;
+  border-radius: 8px; 
+  background-color: rgb(255, 255, 255);
+  width: 72.5%;
+  min-height: 250px; 
+}
+
 .product {  
   border: 1px solid rgb(78, 78, 78);
   box-shadow: 1px 1px gray;

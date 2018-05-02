@@ -1,9 +1,9 @@
 import express from 'express';
 import contribution from './contribution';
-import product from './product';
+import perchase from './perchase';
 
 const router = express.Router();
 router.use('/contribution', contribution);
-router.use('/product', product);
+router.use('/perchase', perchase);
 
 export default router;

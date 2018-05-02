@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ProductContainer from './productContainer';
 import Calculator from '../components/calculator';
+import PerchaseContainer from './perchaseContainer';
 import axios from 'axios';
 
 class AppTemplate extends Component{
@@ -9,7 +10,13 @@ class AppTemplate extends Component{
     state = {
         totalProducts:[],
         totalPrice:0,
-        selectAll: false
+        selectAll: false,
+        perchaseList: [],
+        totalPerchase: 0        
+    }
+
+    componentDidMount(){
+        this.getPerchaseList();
     }
 
     handleDetails = (id, productName, productPrice, productQuantity) => {
@@ -60,18 +67,35 @@ class AppTemplate extends Component{
 
         const data = totalProducts.filter( products => products.selected !== false );
         // console.log(data);
-        return axios.get('/api/product/')
-        .then(response=>{
-            console.log(response);
+        return axios.post('/api/perchase/', data)
+        .then(response => {
+            this.getPerchaseList();
+            this.setState({
+                totalProducts:[],
+                selectAll: false,
+                totalPrice: 0
+            })
         });
     }
 
-    
+    getPerchaseList = () => {
+        return axios.get('/api/perchase/')
+        .then(response => {
+            this.setState({
+                perchaseList: response.data
+            })
+        });    
+    }
 
     render(){
 
         const { handleDetails, handleSelect, handleSubmit } = this;
-        const { totalProducts, totalPrice  } = this.state;
+        const { 
+            totalProducts,
+            totalPrice,
+            perchaseList,
+            totalPerchase
+              } = this.state;
 
         return(
             <div>
@@ -83,6 +107,10 @@ class AppTemplate extends Component{
                     totalPrice={ totalPrice }
                     onRowSelect={ handleSelect }
                     onSubmit={ handleSubmit }
+                />
+                <PerchaseContainer
+                    perchaseList={ perchaseList }
+                    totalPerchase={ totalPerchase }
                 />
             </div>
         )
