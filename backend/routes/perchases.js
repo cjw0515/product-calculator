@@ -13,12 +13,12 @@ router.get('/', (req, res) => {
   
   if(field === "productName"){
     Perchase.aggregate([
-      //{ $unwind: "$records" },
       { $group: {
           _id: "$productName",
           productPrice: { $sum: "$productPrice"  },
           productQuantity: { $sum: "$productQuantity"  }
-      }}
+      }},
+      { "$sort": { "productPrice": -1 }}
   ], (err, result) => {
     if (err) throw err;
     res.json(result);

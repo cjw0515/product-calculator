@@ -18,7 +18,7 @@ const Product = ({
 }) => (
     <div className="product" key={key}>        
         <div className="imgcontainer">
-            <img src={img}/>        
+            <img src={img} alt={productName}/>        
         </div>                
         <p>제품명 : {productName}</p>
         <p>가격 : {utils.addComma(productPrice)}</p>        

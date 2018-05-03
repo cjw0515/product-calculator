@@ -13,22 +13,6 @@ import {
   
 class Calculator extends Component{
  
-    componentDidUpdate(){
-        //this.props.onLoadList();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        // return false 하면 업데이트를 안함
-        // return this.props.checked !== nextProps.checked
-        //this.props.onLoadList();
-        if(nextProps === nextState)
-        console.log("shouldConponentUpdate")
-        console.log("nextProps: ", nextProps)
-        console.log("this.props: ", this.props)
-        console.log(nextProps !== this.props)
-        return nextProps !== this.props ;
-      }
-
     render(){
 
         const { totalProducts, totalPrice, onRowSelect, onSubmit } = this.props;
