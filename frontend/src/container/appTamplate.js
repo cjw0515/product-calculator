@@ -21,23 +21,28 @@ class AppTemplate extends Component{
     }
 
     handleDetails = (id, productName, productPrice, productQuantity) => {
-        if(productQuantity===0)return;
+        if(productQuantity===0 || productQuantity==='' )return;
         const { totalProducts, selectAll } = this.state;
         const productTotalPrice = productPrice * productQuantity;        
 
-        return axios.get('/').then(response=>{
-            console.log(response);
-            this.setState({
-                totalProducts: totalProducts.concat({
-                    id: id,
-                    productName: productName,                
-                    productQuantity: productQuantity,
-                    productPrice: productPrice,
-                    productTotalPrice: productTotalPrice,
-                    selected: selectAll ? true : false
-                })                        
-            })        
-        })        
+        const addProduct = () => {
+            return new Promise( (resolve, reject) => {
+                this.setState({
+                    totalProducts: totalProducts.concat({
+                        id: id,
+                        productName: productName,                
+                        productQuantity: productQuantity,
+                        productPrice: productPrice,
+                        productTotalPrice: productTotalPrice,
+                        selected: selectAll ? true : false
+                    })
+                })
+                resolve("insert complete");
+            })
+        }
+
+        addProduct()
+        .then(()=>{this.handleTotalPrice()});
     }
 
     handleTotalPrice = () => {

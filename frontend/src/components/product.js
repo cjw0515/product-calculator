@@ -14,7 +14,6 @@ const Product = ({
     onChange,
     onQTTctrl,
     onCalulate,
-    onClick,
     reset,
 }) => (
     <div className="product" key={key}>        
@@ -51,11 +50,7 @@ const Product = ({
             <RaisedButton label="calculate" 
                 onClick={() => {
                     onCalulate(id, productName, productPrice, productQuantity)
-                    .then(() => {
-                        onClick();
-                        reset(id);
-                    });
-                    
+                    reset(id);
                 }}
                 fullWidth={true} />
         </div>
