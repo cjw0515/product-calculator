@@ -13,6 +13,12 @@ db.once('open', () => { console.log('Connected to mongodb server'); });
 mongoose.connect('mongodb://localhost/10x10');
 
 app.use(bodyParser.json());
+
+//test
+app.get('/', (req, res) => {
+    res.send('server');
+})
 app.use('/api', api);
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

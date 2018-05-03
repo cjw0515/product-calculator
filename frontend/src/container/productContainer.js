@@ -106,6 +106,7 @@ class productContainer extends Component{
             onChange={ handleChange }
             onQTTctrl={ handleQTT }
             onCalulate={ this.props.onCalulate }
+            onClick={ this.props.onClick }
             reset={ reset }
             />
         ));

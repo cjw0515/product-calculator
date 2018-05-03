@@ -12,9 +12,23 @@ import {
   } from 'material-ui/Table';
   
 class Calculator extends Component{
-    state = {
-        allRowsSelected: false
+ 
+    componentDidUpdate(){
+        //this.props.onLoadList();
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // return false 하면 업데이트를 안함
+        // return this.props.checked !== nextProps.checked
+        //this.props.onLoadList();
+        if(nextProps === nextState)
+        console.log("shouldConponentUpdate")
+        console.log("nextProps: ", nextProps)
+        console.log("this.props: ", this.props)
+        console.log(nextProps !== this.props)
+        return nextProps !== this.props ;
+      }
+
     render(){
 
         const { totalProducts, totalPrice, onRowSelect, onSubmit } = this.props;
@@ -30,22 +44,19 @@ class Calculator extends Component{
                         selectable={true}
                         multiSelectable={true}
                         onRowSelection={onRowSelect}                       
-                        allRowsSelected={this.state.allRowsSelected}
+                        // allRowsSelected={this.state.allRowsSelected}
                         >
                         <TableHeader
                             displaySelectAll={true}
                             adjustForCheckbox={true}
-                            enableSelectAll={true}
-                            onSelectAll={()=>{alert()}}
-                        >
+                            enableSelectAll={true}                            
+                        >              
                             <TableRow>
                                 <TableHeaderColumn colSpan="4" tooltip="계산상세" style={{textAlign: 'right'}}>
                                 <p>총 금액 : {utils.addComma(totalPrice)} 원</p>
                                 </TableHeaderColumn>
                             </TableRow>
-                            <TableRow                            
-                                
-                             >
+                            <TableRow>
                                 <TableHeaderColumn tooltip="제품명">제품명</TableHeaderColumn>
                                 <TableHeaderColumn tooltip="수량">수량</TableHeaderColumn>
                                 <TableHeaderColumn tooltip="금액">금액</TableHeaderColumn>
@@ -84,17 +95,7 @@ class Calculator extends Component{
                                 <p>총 금액 : {utils.addComma(totalPrice)} 원</p>
                                 <RaisedButton
                                  label="전송"
-                                 onClick={
-                                     () => {
-                                         onSubmit()
-                                         .then(
-                                            () => {
-                                                this.setState({
-                                                    allRowsSelected: !this.state.allRowsSelected
-                                                })
-                                            }
-                                         );
-                                        }}
+                                 onClick={onSubmit}
                                   />
                             </TableRowColumn>
                             </TableRow>

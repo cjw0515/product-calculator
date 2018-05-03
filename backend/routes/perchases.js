@@ -2,23 +2,10 @@ import express from 'express';
 import Perchase from '../models/perchase';
 
 const router = express.Router();
-/* 
-  test
- */
-router.get('/test', (req, res) => {
-  res.send(req.query)
-})
-/*
-    구매품목 리스트: GET /api/perchase
-*/
 
-// router.get('/', (req, res) => {
-  
-
-//   });
 /*
-    조건별 구매품목 리스트 : GET /api/perchase/:listType/:option 
-    ex) /api/perchases?group=productName
+    구매품목 리스트       : GET /api/perchase
+    조건별 구매품목 리스트 : GET /api/perchases?group=productName    
 */
 router.get('/', (req, res) => {
   
@@ -58,7 +45,6 @@ router.post('/', (req, res) => {
     if(err)throw err;
     return res.json(result);
   })
-  console.log(req.body);
 })
 
 export default router;

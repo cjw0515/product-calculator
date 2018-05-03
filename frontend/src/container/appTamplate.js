@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ProductContainer from './productContainer';
 import Calculator from '../components/calculator';
 import PerchaseContainer from './perchaseContainer';
+import * as utils from '../utils/utils';
 import axios from 'axios';
 
 class AppTemplate extends Component{
@@ -12,7 +13,7 @@ class AppTemplate extends Component{
         totalPrice:0,
         selectAll: false,
         perchaseList: [],
-        totalPerchase: 0        
+        totalPerchase: 0,                
     }
 
     componentDidMount(){
@@ -21,20 +22,32 @@ class AppTemplate extends Component{
 
     handleDetails = (id, productName, productPrice, productQuantity) => {
         if(productQuantity===0)return;
-        const { totalProducts } = this.state;
+        const { totalProducts, selectAll } = this.state;
         const productTotalPrice = productPrice * productQuantity;        
 
-        this.setState({
-            totalProducts: totalProducts.concat({
-                id: id,
-                productName: productName,                
-                productQuantity: productQuantity,
-                productPrice: productPrice,
-                productTotalPrice: productTotalPrice,
-                selected: false
-            })            
-        });
+        return axios.get('/').then(response=>{
+            console.log(response);
+            this.setState({
+                totalProducts: totalProducts.concat({
+                    id: id,
+                    productName: productName,                
+                    productQuantity: productQuantity,
+                    productPrice: productPrice,
+                    productTotalPrice: productTotalPrice,
+                    selected: selectAll ? true : false
+                })                        
+            })        
+        })        
     }
+
+    handleTotalPrice = () => {
+        const totalPrice = utils.getTotalPrice(this.state.totalProducts);
+        this.setState({
+            totalPrice: totalPrice
+        })
+    }
+
+    
 
     handleSelect = (rows) => {        
         const { totalProducts, selectAll } = this.state;
@@ -46,9 +59,7 @@ class AppTemplate extends Component{
             selectedItems.push(products);
         });
 
-        totalProducts.forEach((products, i) => {
-            totalPrice += products.selected ? products.productTotalPrice : 0
-        });
+        totalPrice = utils.getTotalPrice(totalProducts);
 
         console.log(rows);
         this.setState({
@@ -58,6 +69,7 @@ class AppTemplate extends Component{
         })  
     }
 
+/* 구매내역 리스트 삽입 */
     handleSubmit = () => {
         const { totalPrice, totalProducts } = this.state;
         if(totalPrice === 0){
@@ -72,12 +84,11 @@ class AppTemplate extends Component{
             this.getPerchaseList();
             this.setState({
                 totalProducts:[],
-                selectAll: false,
                 totalPrice: 0
             })
         });
     }
-
+/* 구매내역 리스트 로드 */
     getPerchaseList = (listType, option) => {
 
         let url = '/api/perchases';
@@ -104,7 +115,8 @@ class AppTemplate extends Component{
             handleDetails,
             handleSelect, 
             handleSubmit,
-            getPerchaseList
+            getPerchaseList,
+            handleTotalPrice
          } = this;
         const { 
             totalProducts,
@@ -117,8 +129,10 @@ class AppTemplate extends Component{
             <div>
                 <ProductContainer
                     onCalulate={ handleDetails }
+                    onClick={ handleTotalPrice }
                 />
                 <Calculator
+                    onLoadList={ handleTotalPrice }
                     totalProducts={ totalProducts }
                     totalPrice={ totalPrice }
                     onRowSelect={ handleSelect }
