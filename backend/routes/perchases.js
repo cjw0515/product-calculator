@@ -43,7 +43,10 @@ router.post('/', (req, res) => {
   const perchase = req.body;
   Perchase.insertMany(perchase, (err, result) => {
     if(err)throw err;
-    return res.json(result);
+    return res.json({
+      success: true,
+      message: "구매정보가 삽입되었습니다."
+    });
   })
 })
 
