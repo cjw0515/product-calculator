@@ -10,6 +10,11 @@ import TextField from "material-ui/TextField";
  *
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
+
+const customContentStyle = {
+  width: '30%',
+  maxWidth: 'none',
+};
 export default class DialogExampleSimple extends React.Component {
   state = {
     open: false
@@ -25,26 +30,40 @@ export default class DialogExampleSimple extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
       <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.handleClose}
-      />
+      label="Submit"
+      primary={true}
+      keyboardFocused={true}
+      onClick={this.handleClose}
+    />,
+      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,   
     ];
 
     return (
       <div>
         <RaisedButton label="Dialog" onClick={this.handleOpen} />
         <Dialog
-          title="Dialog With Actions"
+          title="Login"
+          contentStyle={customContentStyle}
           actions={actions}
           modal={false}
           open={this.props.open}
           onRequestClose={this.props.onClose}
+          actionsContainerStyle={{textAlign:"center"}}
         >
-          <TextField hintText="email" />
+          username :
+          <br/>
+          <TextField 
+           hintText="email"
+           style={{width:"100%"}}
+           />
+          <br/>
+          password :
+          <br/>
+          <TextField 
+           hintText="email"
+           style={{width:"100%"}}
+           />
         </Dialog>
       </div>
     );

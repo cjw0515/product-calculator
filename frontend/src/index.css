@@ -69,3 +69,7 @@ img {
   background-color: rgb(255, 255, 255);
   width: 15%;
 }
+
+.loginDialog {
+  width: 100%;
+}
