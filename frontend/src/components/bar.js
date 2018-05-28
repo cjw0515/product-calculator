@@ -1,31 +1,59 @@
-import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import FlatButton from 'material-ui/FlatButton';
-
-function handleClick() {
-  alert('onClick triggered on the title component');
-}
+import React, { Component } from "react";
+import AppBar from "material-ui/AppBar";
+import IconButton from "material-ui/IconButton";
+import NavigationClose from "material-ui/svg-icons/navigation/close";
+import Login from "./login";
+import FlatButton from "material-ui/FlatButton";
 
 const styles = {
   title: {
-    cursor: 'pointer',
-  },
+    cursor: "pointer"
+  }
 };
 
-/**
- * This example uses an [IconButton](/#/components/icon-button) on the left, has a clickable `title`
- * through the `onClick` property, and a [FlatButton](/#/components/flat-button) on the right.
- */
-const Bar = () => (
-  <AppBar
-    title={<span style={styles.title}>제품 계산기</span>}
-    onTitleClick={handleClick}
-    /* iconElementLeft={<IconButton><NavigationClose /></IconButton>} */
-    iconElementRight={<FlatButton label="Login" />}
-    style={{backgroundColor:"#FF6F00"}}
-  />
-);
+class Bar extends Component {
+  state = {
+    open: false
+  };
+
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
+  handleClick = () => {
+    alert("onClick triggered on the title component");
+  };
+
+
+
+  render() {
+    return (
+      <div>
+        <AppBar
+          title={<span style={styles.title}>calculator</span>}
+          onTitleClick={this.handleClick}
+          /* iconElementLeft={<IconButton><NavigationClose /></IconButton>} */
+          iconElementRight={
+            <FlatButton 
+            label="Login" 
+            onClick={this.handleOpen}              
+            />
+          }
+          style={{ backgroundColor: "#FF6F00" }}
+        />
+        <Login
+          open={this.state.open}
+          onClose={this.handleClose}
+         />
+      </div>
+    );
+  }
+}
 
 export default Bar;
