@@ -3,6 +3,7 @@ import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import Login from "./login";
+import SignUp from "./signup";
 import FlatButton from "material-ui/FlatButton";
 
 const styles = {
@@ -13,24 +14,59 @@ const styles = {
 
 class Bar extends Component {
   state = {
-    open: false
+    loginOpen: false,
+    signUpOpen: false
   };
 
-  handleOpen = () => {
-    this.setState({
-      open: true
-    })
+  state = {
+    loginId: '',
+    loginPassword: '',
+    signUpId: '',
+    signUpPassword: '',
   }
 
-  handleClose = () => {
-    this.setState({open: false});
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+
+  handleOpen = dialogType => {
+    if (dialogType === "login") {
+      this.setState({
+        loginOpen: true
+      });
+    }else if(dialogType === "signUpOpen"){
+      this.setState({
+        signUpOpen: true
+      })
+    }
+  };
+
+  handleClose = dialogType => {
+    if (dialogType === "login") {
+      this.setState({
+        loginOpen: false
+      });
+    }else if(dialogType === "signUpOpen"){
+      this.setState({
+        signUpOpen: false
+      })
+    }
   };
 
   handleClick = () => {
     alert("onClick triggered on the title component");
   };
 
+  handleLogin = () => {
+    alert('login');
+  }
 
+  handleSignUp = () => {
+    alert('signup');
+  }
 
   render() {
     return (
@@ -40,16 +76,23 @@ class Bar extends Component {
           onTitleClick={this.handleClick}
           /* iconElementLeft={<IconButton><NavigationClose /></IconButton>} */
           iconElementRight={
-            <FlatButton 
-            label="Login" 
-            onClick={this.handleOpen}              
+            <FlatButton
+              label="Login"
+              onClick={() => {
+                this.handleOpen("login");
+              }}
             />
           }
           style={{ backgroundColor: "#FF6F00" }}
         />
-        <Login
-          open={this.state.open}
-          onClose={this.handleClose}
+        <Login open={this.state.loginOpen} onClose={this.handleClose} 
+        openDialog={this.handleOpen}
+        onLogin={this.handleLogin}
+        onChange={this.handleChange}
+        />
+        <SignUp open={this.state.signUpOpen} onClose={this.handleClose}
+        onSignUp={this.handleSignUp}
+        onChange={this.handleChange}
          />
       </div>
     );

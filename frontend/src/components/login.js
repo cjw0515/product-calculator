@@ -14,41 +14,38 @@ import TextField from "material-ui/TextField";
 const customContentStyle = {
   width: '30%',
   maxWidth: 'none',
-};
-export default class DialogExampleSimple extends React.Component {
-  state = {
-    open: false
-  };
+};  
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
+export default class Login extends React.Component {
+  
   render() {
     const actions = [
       <FlatButton
       label="Submit"
       primary={true}
       keyboardFocused={true}
-      onClick={this.handleClose}
+      onClick={this.props.onLogin}
     />,
-      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,   
+      <FlatButton label="Cancel" primary={true} onClick={
+        () => {
+          this.props.onClose("login");
+        }
+      } />,   
     ];
 
     return (
       <div>
-        <RaisedButton label="Dialog" onClick={this.handleOpen} />
         <Dialog
           title="Login"
           contentStyle={customContentStyle}
           actions={actions}
           modal={false}
           open={this.props.open}
-          onRequestClose={this.props.onClose}
+          onRequestClose={
+            () => {
+              this.props.onClose("login");
+            }
+          }
           actionsContainerStyle={{textAlign:"center"}}
         >
           username :
@@ -56,14 +53,25 @@ export default class DialogExampleSimple extends React.Component {
           <TextField 
            hintText="email"
            style={{width:"100%"}}
+           name="loginId"
+           onChange={this.props.onChange}
            />
           <br/>
           password :
           <br/>
           <TextField 
-           hintText="email"
+           hintText="password"
            style={{width:"100%"}}
+           name="loginPassword"
+           onChange={this.props.onChange}
+           type="password"
            />
+           <p
+           onClick={()=>{
+             this.props.onClose("login");
+             this.props.openDialog("signUpOpen")}
+            }
+           >signup</p>
         </Dialog>
       </div>
     );
